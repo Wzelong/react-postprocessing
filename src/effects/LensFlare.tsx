@@ -153,20 +153,22 @@ export const LensFlare = forwardRef<LensFlareEffect, LensFlareProps>(
         mouse2d.set(projectedPosition.x, projectedPosition.y)
         raycaster.setFromCamera(mouse2d, camera)
         const intersects = raycaster.intersectObjects(scene.children, true)
-        const { object } = intersects[0]
-        if (object) {
-          if (object.userData?.lensflare === 'no-occlusion') {
-            target = 0
-          } else if (object instanceof THREE.Mesh) {
-            if (object.material.uniforms?._transmission?.value > 0.2) {
-              //Check for MeshTransmissionMaterial
-              target = 0.2
-            } else if (object.material._transmission && object.material._transmission > 0.2) {
-              //Check for MeshPhysicalMaterial with transmission setting
-              target = 0.2
-            } else if (object.material.transparent) {
-              // Check for OtherMaterials with transparent parameter
-              target = object.material.opacity
+        if (intersects.length > 0) {
+          const { object } = intersects[0]
+          if (object) {
+            if (object.userData?.lensflare === 'no-occlusion') {
+              target = 0
+            } else if (object instanceof THREE.Mesh) {
+              if (object.material.uniforms?._transmission?.value > 0.2) {
+                //Check for MeshTransmissionMaterial
+                target = 0.2
+              } else if (object.material._transmission && object.material._transmission > 0.2) {
+                //Check for MeshPhysicalMaterial with transmission setting
+                target = 0.2
+              } else if (object.material.transparent) {
+                // Check for OtherMaterials with transparent parameter
+                target = object.material.opacity
+              }
             }
           }
         }
