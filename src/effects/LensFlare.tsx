@@ -145,11 +145,11 @@ export const LensFlare = forwardRef<LensFlareEffect, LensFlareProps>(
         target = 0
       } else {
         projectedPosition.copy(position).project(camera)
+        console.log(projectedPosition)
         if (projectedPosition.z > 1) return
 
         uLensPosition.value.x = projectedPosition.x
         uLensPosition.value.y = projectedPosition.y
-        console.log(projectedPosition)
 
         mouse2d.set(projectedPosition.x, projectedPosition.y)
         raycaster.setFromCamera(mouse2d, camera)
