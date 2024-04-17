@@ -121,7 +121,7 @@ type LensFlareProps = ConstructorParameters<typeof LensFlareEffect>[0] & {
 }
 
 export const LensFlare = forwardRef<LensFlareEffect, LensFlareProps>(
-  ({ position = new THREE.Vector3(-25, 6, -60), followMouse = false, smoothTime = 0.07, ...props }, ref) => {
+  ({ position = new THREE.Vector3(0, 0, 0), followMouse = false, smoothTime = 0.07, ...props }, ref) => {
     const viewport = useThree(({ viewport }) => viewport)
     const raycaster = useThree(({ raycaster }) => raycaster)
     const pointer = useThree(({ pointer }) => pointer)
@@ -149,6 +149,7 @@ export const LensFlare = forwardRef<LensFlareEffect, LensFlareProps>(
 
         uLensPosition.value.x = projectedPosition.x
         uLensPosition.value.y = projectedPosition.y
+        console.log(projectedPosition)
 
         mouse2d.set(projectedPosition.x, projectedPosition.y)
         raycaster.setFromCamera(mouse2d, camera)
