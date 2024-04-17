@@ -171,8 +171,6 @@ export const LensFlare = forwardRef<LensFlareEffect, LensFlareProps>(
               }
             }
           }
-        } else {
-          target = 0;
         }
       }
 
